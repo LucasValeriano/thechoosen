@@ -18,6 +18,22 @@
             font-display: swap;
         }
     </style>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26069232519364368');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26069232519364368&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="min-h-screen bg-neutral-200 flex justify-center font-sans">
@@ -323,6 +339,58 @@
             countSpan.textContent = count + ' pessoas';
         }, 3000);
     }
+
+    // Gerador de ID único de evento para Deduplicação do Facebook Pixel/CAPI
+    function generateEventId() {
+        return 'evt_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+    }
+
+    // Disparador de CAPI seguro com dupla compatibilidade (PHP local ou Vercel Serverless)
+    function dispatchCAPI(eventName, eventId) {
+        const payload = {
+            event_id: eventId,
+            event_name: eventName,
+            source_url: window.location.href
+        };
+
+        // 1. Tenta enviar para o PHP Proxy local (capi.php)
+        fetch('capi.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => {
+            // Se der 404 (o servidor não suporta PHP ou o arquivo não está lá)
+            if (res.status === 404) {
+                // 2. Tenta enviar para o Vercel Serverless Endpoint (/api/capi)
+                return fetch('/api/capi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+            }
+        })
+        .catch(err => {
+            console.warn('Erro ao enviar para CAPI:', err);
+        });
+    }
+
+    // Disparo dos eventos (Deduplicação Browser + Server)
+    (function() {
+        const eventId = generateEventId();
+        
+        // 1. Enviar evento PageView via Browser (Meta Pixel)
+        if (window.fbq) {
+            fbq('track', 'PageView', {}, { eventID: eventId });
+        }
+        
+        // 2. Enviar evento PageView via Servidor (CAPI) de forma oculta
+        dispatchCAPI('PageView', eventId);
+    })();
 </script>
 </body>
 </html>
