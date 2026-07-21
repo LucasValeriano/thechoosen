@@ -45,13 +45,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --pxp-gradient-start: #2A0800;
-            --pxp-gradient-end: #8B2000;
-            --pxp-btn-color: #D35400;
-            --pxp-btn-hover: #E67E22;
-            --pxp-bg-modal: #FDFAF8;
-            --pxp-text-main: #1A0A00;
-            --pxp-text-muted: #6B5B52;
+            --pxp-gradient-start: #ffffff;
+            --pxp-gradient-end: #ffffff;
+            --pxp-btn-color: #15803d;
+            --pxp-btn-hover: #166534;
+            --pxp-bg-modal: #ffffff;
+            --pxp-text-main: #2b1810;
+            --pxp-text-muted: #7c685f;
             --pxp-success: #10B981;
             --pxp-success-bg: #E6F4EA;
             --pxp-error: #EF4444;
@@ -137,29 +137,31 @@
 
         /* Topo do Modal (Identidade Visual) */
         .pxp-header {
-            background: linear-gradient(135deg, var(--pxp-gradient-start) 0%, var(--pxp-gradient-end) 100%);
-            padding: 32px 24px 24px 24px;
+            background: #ffffff;
+            padding: 24px 24px 18px 24px;
             text-align: center;
-            color: #FDFAF8;
+            color: var(--pxp-text-main);
             position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .pxp-brand-logo-img {
-            max-height: 90px;
+            max-height: 80px;
             display: block;
-            margin: 0 auto 12px auto;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+            margin: 0 auto 4px auto;
+            border-radius: var(--pxp-radius-sm);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             animation: pxpLogoEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
         @keyframes pxpLogoEntrance {
-            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+            from { opacity: 0; transform: scale(0.85) translateY(-5px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .pxp-brand-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.3rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
             margin-bottom: 4px;
             display: flex;
@@ -169,11 +171,11 @@
         }
 
         .pxp-header p {
-            font-size: 0.85rem;
-            color: rgba(253, 250, 248, 0.85);
+            font-size: 0.72rem;
+            color: var(--pxp-text-muted);
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* Corpo do Modal com Scroll Interno */
@@ -289,7 +291,7 @@
             font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(211, 84, 0, 0.25);
+            box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25);
             transition: var(--pxp-transition);
             display: flex;
             align-items: center;
@@ -301,7 +303,7 @@
         .pxp-btn:hover {
             background-color: var(--pxp-btn-hover);
             transform: translateY(-1.5px);
-            box-shadow: 0 10px 24px rgba(211, 84, 0, 0.35);
+            box-shadow: 0 10px 24px rgba(21, 128, 61, 0.35);
         }
 
         .pxp-btn:active {
@@ -313,9 +315,9 @@
         }
 
         @keyframes pxpBtnPulse {
-            0% { box-shadow: 0 8px 20px rgba(211, 84, 0, 0.25); }
-            50% { box-shadow: 0 8px 26px rgba(211, 84, 0, 0.55); }
-            100% { box-shadow: 0 8px 20px rgba(211, 84, 0, 0.25); }
+            0% { box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25); }
+            50% { box-shadow: 0 8px 26px rgba(21, 128, 61, 0.55); }
+            100% { box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25); }
         }
 
         .pxp-btn-secondary {
@@ -954,10 +956,8 @@
                 
                 <!-- Cabeçalho -->
                  <div class="pxp-header">
-                     <div class="pxp-brand-logo" style="font-size: 20px; font-weight: 800; color: #8B2000; font-family: 'Outfit', sans-serif;">
-                         📖 Manuscrito dos Milagres
-                     </div>
-                     <p>Checkout Seguro PIX</p>
+                     <img src="logo.png" alt="Manuscrito dos Milagres" class="pxp-brand-logo-img">
+                     <p>PAGAMENTO SEGURO PIX</p>
                  </div>
                 
                 <!-- Corpo -->
