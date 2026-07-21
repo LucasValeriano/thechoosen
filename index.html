@@ -20,6 +20,23 @@
         .escondido, .elementos-ocultos {
             display: none;
         }
+        @keyframes pulse-green {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+        .btn-pulse-green {
+            animation: pulse-green 2s infinite;
+        }
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -72,6 +89,14 @@
             </div>
         </section>
 
+        <!-- Botão de Compra Verde e Pulsante (Logo abaixo do vídeo) -->
+        <section class="escondido elementos-ocultos px-4 py-3 bg-white text-center border-b border-neutral-200">
+            <button type="button" class="open-pix-modal btn-pulse-green w-full max-w-[400px] py-4 px-5 rounded-xl text-white font-extrabold text-[16px] shadow-lg active:scale-[0.98] transition-all duration-300 flex flex-col items-center justify-center gap-0.5 mx-auto" style="background: linear-gradient(135deg, #15803d 0%, #22c55e 100%); border: none; cursor: pointer;" data-pix-trigger data-pix-value="37" data-pix-plan="Manuscrito dos Milagres">
+                <span class="tracking-wide">QUERO OS MANUSCRITOS SAGRADOS</span>
+                <span style="font-size: 11px; opacity: 0.9; font-weight: normal; font-family: sans-serif;">Clique para pagar R$ 37,00 com PIX Seguro</span>
+            </button>
+        </section>
+
         <!-- SOCIAL PROOF / DATE / LIVE COUNT -->
         <section class="bg-white px-4 py-3 border-b border-neutral-200">
             <div class="flex items-center gap-2 text-[13px] text-neutral-700">
@@ -85,14 +110,6 @@
                     <path d="M12 17h.01"></path>
                 </svg>
                 <span class="underline">ESTE VÍDEO SAIRÁ DO AR DIA <span id="current-date">--/--/----</span></span>
-            </div>
-            
-            <!-- Botão de Compra com Delay e Trigger de Modal PIX -->
-            <div class="escondido elementos-ocultos mt-4 px-2 pb-2">
-                <button type="button" class="open-pix-modal w-full py-4 px-5 rounded-xl bg-gradient-to-r from-[#8B2000] to-[#D35400] text-white font-extrabold text-[15px] shadow-lg active:scale-[0.98] transition-all duration-300 flex flex-col items-center justify-center gap-0.5" data-pix-trigger data-pix-value="37" data-pix-plan="Manuscrito dos Milagres">
-                    <span class="tracking-wide">QUERO O MANUSCRITO DOS MILAGRES</span>
-                    <span class="text-[10px] opacity-90 font-normal">Clique para pagar R$ 37,00 com PIX Seguro</span>
-                </button>
             </div>
         </section>
 

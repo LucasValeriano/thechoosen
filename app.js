@@ -978,6 +978,15 @@
                                 </div>
                                 <span class="pxp-error-text" id="pxpNomeError">Por favor, insira seu nome completo</span>
                             </div>
+
+                            <div class="pxp-form-group">
+                                <label for="pxpCpf">CPF</label>
+                                <div class="pxp-input-wrapper">
+                                    <span class="pxp-input-icon">🆔</span>
+                                    <input type="text" id="pxpCpf" class="pxp-input" placeholder="000.000.000-00" maxlength="14" required>
+                                </div>
+                                <span class="pxp-error-text" id="pxpCpfError">Por favor, insira um CPF válido</span>
+                            </div>
                             
                             <div class="pxp-form-group">
                                 <label for="pxpEmail">E-mail</label>
@@ -986,45 +995,6 @@
                                     <input type="email" id="pxpEmail" class="pxp-input" placeholder="exemplo@email.com" required>
                                 </div>
                                 <span class="pxp-error-text" id="pxpEmailError">Por favor, insira um e-mail válido</span>
-                            </div>
-                            
-                            <input type="hidden" id="pxpCpf" value="">
-                            
-                            <div class="pxp-form-group">
-                                <label for="pxpWhatsapp">WhatsApp</label>
-                                <div class="pxp-input-wrapper">
-                                    <span class="pxp-input-icon">📱</span>
-                                    <input type="text" id="pxpWhatsapp" class="pxp-input" placeholder="(00) 00000-0000" maxlength="15" required>
-                                </div>
-                                <span class="pxp-error-text" id="pxpWhatsappError">Por favor, insira seu WhatsApp com DDD</span>
-                            </div>
-                            
-                            <!-- ORDERBUMP ACESSO VITALICIO -->
-                            <div class="pxp-orderbump-container">
-                                <label class="pxp-orderbump-label" for="pxpOrderBump">
-                                    <input type="checkbox" id="pxpOrderBump" class="pxp-orderbump-checkbox">
-                                    <span class="pxp-orderbump-checkbox-custom"></span>
-                                    <div class="pxp-orderbump-content" style="flex: 1;">
-                                        <span class="pxp-orderbump-badge">RECOMENDADO</span>
-                                        <span class="pxp-orderbump-title">Acesso Vitalício + R$ 9,90</span>
-                                        <p class="pxp-orderbump-text">Tenha acesso vitalício do produto para sempre!</p>
-                                    </div>
-                                    <img src="lifetime_badge.png" alt="Acesso Vitalício" class="pxp-orderbump-image">
-                                </label>
-                            </div>
-
-                            <!-- ORDERBUMP GRUPO VIP WHATSAPP -->
-                            <div class="pxp-orderbump-container" style="margin-top: 6px;">
-                                <label class="pxp-orderbump-label" for="pxpOrderBumpWhats">
-                                    <input type="checkbox" id="pxpOrderBumpWhats" class="pxp-orderbump-checkbox">
-                                    <span class="pxp-orderbump-checkbox-custom"></span>
-                                    <div class="pxp-orderbump-content" style="flex: 1;">
-                                        <span class="pxp-orderbump-badge" style="background-color: #25D366;">GRUPO VIP</span>
-                                        <span class="pxp-orderbump-title">Grupo VIP no WhatsApp + R$ 14,90</span>
-                                        <p class="pxp-orderbump-text">Entre para o nosso grupo VIP no whatsapp para receber novas atualização e fazer NETWORKING.</p>
-                                    </div>
-                                    <img src="whatsapp_vip_group.png" alt="Grupo VIP WhatsApp" class="pxp-orderbump-image">
-                                </label>
                             </div>
                             
                             <button type="submit" class="pxp-btn pxp-btn-pulse" id="pxpSubmitBtn">
@@ -1295,23 +1265,20 @@
             }
         });
 
-        // Máscaras de digitação em tempo real
-
-        const whatsappInput = document.getElementById('pxpWhatsapp');
-        whatsappInput.addEventListener('input', function (e) {
+        // Máscaras de digitação em tempo real (CPF)
+        const cpfInput = document.getElementById('pxpCpf');
+        cpfInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, "");
             if (value.length > 11) value = value.slice(0, 11);
-            if (value.length > 10) {
-                value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
-            } else if (value.length > 5) {
-                value = value.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
-            } else if (value.length > 2) {
-                value = value.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
-            } else if (value.length > 0) {
-                value = value.replace(/^(\d*)$/, "($1");
+            if (value.length > 9) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{0,3})$/, "$1.$2.$3");
+            } else if (value.length > 3) {
+                value = value.replace(/^(\d{3})(\d{0,3})$/, "$1.$2");
             }
             e.target.value = value;
-            clearInputError(whatsappInput, 'pxpWhatsappError');
+            clearInputError(cpfInput, 'pxpCpfError');
         });
 
         // Ouvintes de limpeza simples de erros nos inputs
@@ -1323,31 +1290,6 @@
 
         // Botão de Copiar Código PIX
         copyBtn.addEventListener('click', copyPixCode);
-
-        // Ouvintes dos Order Bumps para atualizar o texto do botão dinamicamente
-        const orderBump1 = document.getElementById('pxpOrderBump');
-        const orderBump2 = document.getElementById('pxpOrderBumpWhats');
-        const submitBtn = document.getElementById('pxpSubmitBtn');
-
-        function updateSubmitButtonText() {
-            if (!submitBtn) return;
-            const spanText = submitBtn.querySelector('span');
-            if (spanText) {
-                let total = appState.baseAmount;
-                if (orderBump1 && orderBump1.checked) total += 9.90;
-                if (orderBump2 && orderBump2.checked) total += 14.90;
-
-                const formattedTotal = total.toFixed(2).replace('.', ',');
-                spanText.innerText = 'Gerar PIX - R$ ' + formattedTotal;
-            }
-        }
-
-        if (orderBump1) {
-            orderBump1.addEventListener('change', updateSubmitButtonText);
-        }
-        if (orderBump2) {
-            orderBump2.addEventListener('change', updateSubmitButtonText);
-        }
     }
 
     // ==========================================================================
@@ -1419,7 +1361,7 @@
         document.getElementById('pxpForm').reset();
         document.getElementById('pxpAlertError').style.display = 'none';
         
-        const inputs = ['pxpNome', 'pxpEmail', 'pxpCpf', 'pxpWhatsapp'];
+        const inputs = ['pxpNome', 'pxpEmail', 'pxpCpf'];
         inputs.forEach(id => {
             const input = document.getElementById(id);
             if (input) {
@@ -1429,15 +1371,6 @@
             }
         });
 
-        // Reseta os Order Bumps
-        const orderBump1 = document.getElementById('pxpOrderBump');
-        if (orderBump1) {
-            orderBump1.checked = false;
-        }
-        const orderBump2 = document.getElementById('pxpOrderBumpWhats');
-        if (orderBump2) {
-            orderBump2.checked = false;
-        }
         appState.orderBump1 = false;
         appState.orderBump2 = false;
         const submitBtn = document.getElementById('pxpSubmitBtn');
@@ -1462,7 +1395,6 @@
         const nome = document.getElementById('pxpNome');
         const email = document.getElementById('pxpEmail');
         const cpf = document.getElementById('pxpCpf');
-        const whatsapp = document.getElementById('pxpWhatsapp');
 
         // Valida Nome (Mínimo duas palavras)
         const nameVal = nome.value.trim();
@@ -1471,6 +1403,15 @@
             isValid = false;
         } else {
             appState.formData.nome = nameVal;
+        }
+
+        // Valida CPF (11 dígitos)
+        const cpfVal = cpf.value.replace(/\D/g, "");
+        if (cpfVal.length !== 11) {
+            showInputError(cpf, 'pxpCpfError');
+            isValid = false;
+        } else {
+            appState.formData.cpf = cpfVal;
         }
 
         // Valida E-mail
@@ -1482,17 +1423,7 @@
             appState.formData.email = email.value.trim();
         }
 
-        // CPF removido para alta conversão - mantido vazio no estado
-        appState.formData.cpf = "";
-
-        // Valida WhatsApp (Mínimo 10 dígitos)
-        const phoneVal = whatsapp.value.replace(/\D/g, "");
-        if (phoneVal.length < 10) {
-            showInputError(whatsapp, 'pxpWhatsappError');
-            isValid = false;
-        } else {
-            appState.formData.whatsapp = phoneVal;
-        }
+        appState.formData.whatsapp = "";
 
         return isValid;
     }
@@ -1649,31 +1580,22 @@
         // Limpa erros anteriores
         document.getElementById('pxpAlertError').style.display = 'none';
 
-        // Verifica se os Order Bumps estão marcados e atualiza o estado
-        const orderBump1Checkbox = document.getElementById('pxpOrderBump');
-        const orderBump2Checkbox = document.getElementById('pxpOrderBumpWhats');
-        
-        const hasOrderBump1 = orderBump1Checkbox ? orderBump1Checkbox.checked : false;
-        const hasOrderBump2 = orderBump2Checkbox ? orderBump2Checkbox.checked : false;
-        
-        appState.orderBump1 = hasOrderBump1;
-        appState.orderBump2 = hasOrderBump2;
+        appState.orderBump1 = false;
+        appState.orderBump2 = false;
 
         let totalAmount = appState.baseAmount;
-        if (hasOrderBump1) totalAmount += 9.90;
-        if (hasOrderBump2) totalAmount += 14.90;
 
         // Prepara dados de envio incluindo UTMs para tracking de backend
         const payload = {
             name: appState.formData.nome,
             email: appState.formData.email,
             cpf: appState.formData.cpf,
-            whatsapp: appState.formData.whatsapp,
+            whatsapp: '',
             amount: totalAmount,
             baseAmount: appState.baseAmount,
             baseProductName: appState.baseProductName,
-            orderBump1: hasOrderBump1,
-            orderBump2: hasOrderBump2,
+            orderBump1: false,
+            orderBump2: false,
             tracking: getUtms()
         };
 

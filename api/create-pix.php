@@ -97,7 +97,7 @@ if (isset($input['orderBump2']) && $input['orderBump2'] === true) {
 $description = implode(' + ', $products);
 
 // Limpando Celular para conter apenas números e tratando CPF condicionalmente
-$cleanPhone = preg_replace('/\D/', '', $input['whatsapp']);
+$cleanPhone = !empty($input['whatsapp']) ? preg_replace('/\D/', '', $input['whatsapp']) : '5511999999999';
 $cleanCpf = !empty($input['cpf']) ? preg_replace('/\D/', '', $input['cpf']) : '';
 
 // Se o CPF estiver vazio (já que removemos do front), gera um CPF dinâmico válido
