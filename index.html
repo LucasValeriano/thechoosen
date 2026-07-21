@@ -17,6 +17,9 @@
             font-style: normal;
             font-display: swap;
         }
+        .escondido, .elementos-ocultos {
+            display: none;
+        }
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -82,6 +85,14 @@
                     <path d="M12 17h.01"></path>
                 </svg>
                 <span class="underline">ESTE VÍDEO SAIRÁ DO AR DIA <span id="current-date">--/--/----</span></span>
+            </div>
+            
+            <!-- Botão de Compra com Delay e Trigger de Modal PIX -->
+            <div class="escondido elementos-ocultos mt-4 px-2 pb-2">
+                <button type="button" class="open-pix-modal w-full py-4 px-5 rounded-xl bg-gradient-to-r from-[#8B2000] to-[#D35400] text-white font-extrabold text-[15px] shadow-lg active:scale-[0.98] transition-all duration-300 flex flex-col items-center justify-center gap-0.5" data-pix-trigger data-pix-value="37" data-pix-plan="Manuscrito dos Milagres">
+                    <span class="tracking-wide">QUERO O MANUSCRITO DOS MILAGRES</span>
+                    <span class="text-[10px] opacity-90 font-normal">Clique para pagar R$ 37,00 com PIX Seguro</span>
+                </button>
             </div>
         </section>
 
@@ -383,6 +394,23 @@
         // 2. Enviar evento PageView via Servidor (CAPI) de forma oculta
         dispatchCAPI('PageView', eventId);
     })();
+
+    // Failsafe: Mostrar elementos com delay se o player do VTurb enviar o evento de prontidão
+    document.addEventListener("player:ready", function(event) {
+        var player = event.detail.player || document.querySelector("vturb-smartplayer");
+        if (player && typeof player.on === 'function') {
+            player.on("timeupdate", function(data) {
+                // Caso a configuração do delay falhe no painel, exibe o botão a partir de 9 minutos (540s)
+                if (data.currentTime >= 540) { 
+                    document.querySelectorAll('.escondido, .elementos-ocultos').forEach(function(el) {
+                        el.style.display = 'block';
+                    });
+                }
+            });
+        }
+    });
 </script>
+<!-- Script do Modal PIX Paradise Pags -->
+<script src="app.js"></script>
 </body>
 </html>
