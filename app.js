@@ -41,25 +41,25 @@
     // ESTILOS CSS INJETADOS DINAMICAMENTE (Encapsulados com prefixo .pxp-)
     // ==========================================================================
     const modalStyles = `
-        /* Fontes e Variáveis locais do Modal */
+        /* Fontes e Variáveis do Modal */
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
         :root {
             --pxp-gradient-start: #ffffff;
             --pxp-gradient-end: #ffffff;
-            --pxp-btn-color: #15803d;
-            --pxp-btn-hover: #166534;
+            --pxp-btn-color: #16a34a; /* Perfect Pay Green */
+            --pxp-btn-hover: #15803d;
             --pxp-bg-modal: #ffffff;
-            --pxp-text-main: #2b1810;
-            --pxp-text-muted: #7c685f;
+            --pxp-text-main: #1f2937;
+            --pxp-text-muted: #6b7280;
             --pxp-success: #10B981;
             --pxp-success-bg: #E6F4EA;
             --pxp-error: #EF4444;
             --pxp-error-bg: #FCE8E6;
-            --pxp-radius-lg: 24px;
-            --pxp-radius-md: 16px;
+            --pxp-radius-lg: 20px;
+            --pxp-radius-md: 12px;
             --pxp-radius-sm: 8px;
-            --pxp-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --pxp-transition: all 0.25s ease;
         }
 
         /* Overlay do Backdrop */
@@ -69,7 +69,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(26, 10, 0, 0.6);
+            background-color: rgba(17, 24, 39, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 999999;
@@ -78,7 +78,7 @@
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             font-family: 'Outfit', sans-serif;
         }
 
@@ -91,17 +91,18 @@
         .pxp-modal {
             background-color: var(--pxp-bg-modal);
             width: 100%;
-            max-width: 460px;
+            max-width: 440px;
             border-radius: var(--pxp-radius-lg);
-            box-shadow: 0 25px 50px -12px rgba(26, 10, 0, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             position: relative;
             overflow: hidden;
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.95) translateY(10px);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
             display: flex;
             flex-direction: column;
             max-height: 90vh;
+            border: 1px solid #f3f4f6;
         }
 
         .pxp-overlay.pxp-active .pxp-modal {
@@ -112,84 +113,71 @@
         /* Botão Fechar */
         .pxp-close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(26, 10, 0, 0.05);
+            top: 14px;
+            right: 14px;
+            background: #f3f4f6;
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--pxp-text-main);
-            font-size: 18px;
+            color: #4b5563;
+            font-size: 16px;
             font-weight: 600;
             transition: var(--pxp-transition);
             z-index: 10;
         }
 
         .pxp-close-btn:hover {
-            background: rgba(26, 10, 0, 0.1);
-            transform: rotate(90deg);
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        /* Top Banner - Ambiente Seguro */
+        .pxp-secure-banner {
+            background-color: #f9fafb;
+            padding: 8px 16px;
+            text-align: center;
+            font-size: 0.72rem;
+            color: #4b5563;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border-bottom: 1px solid #f3f4f6;
         }
 
         /* Topo do Modal (Identidade Visual) */
         .pxp-header {
             background: #ffffff;
-            padding: 24px 24px 18px 24px;
+            padding: 16px 20px;
             text-align: center;
-            color: var(--pxp-text-main);
             position: relative;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid #f3f4f6;
         }
 
         .pxp-brand-logo-img {
-            max-height: 80px;
+            max-height: 48px;
             display: block;
-            margin: 0 auto 4px auto;
-            border-radius: var(--pxp-radius-sm);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            animation: pxpLogoEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        @keyframes pxpLogoEntrance {
-            from { opacity: 0; transform: scale(0.85) translateY(-5px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            margin: 0 auto;
+            object-fit: contain;
         }
 
-        .pxp-brand-logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .pxp-header p {
-            font-size: 0.72rem;
-            color: var(--pxp-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        /* Corpo do Modal com Scroll Interno */
+        /* Corpo do Modal */
         .pxp-body {
-            padding: 24px;
+            padding: 20px;
             overflow-y: auto;
             flex-grow: 1;
             scroll-behavior: smooth;
         }
 
-        /* Ocultação de Etapas */
         .pxp-step {
             display: none;
-            animation: pxpFadeIn 0.4s ease;
+            animation: pxpFadeIn 0.3s ease;
         }
 
         .pxp-step.pxp-active-step {
@@ -197,37 +185,95 @@
         }
 
         @keyframes pxpFadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ETAPA 1 - Formulário */
-        .pxp-title-step {
-            font-size: 1.2rem;
+        /* Card Resumo do Pedido */
+        .pxp-summary-card {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--pxp-radius-md);
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pxp-summary-img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: var(--pxp-radius-sm);
+            border: 1px solid #e5e7eb;
+        }
+
+        .pxp-summary-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .pxp-summary-title {
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--pxp-text-main);
-            margin-bottom: 6px;
-            text-align: center;
+            display: block;
         }
 
-        .pxp-desc-step {
-            font-size: 0.88rem;
-            color: var(--pxp-text-muted);
-            text-align: center;
-            margin-bottom: 24px;
+        .pxp-summary-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #16a34a;
+            display: block;
+            margin-top: 1px;
         }
 
-        .pxp-form-group {
+        /* Abas de Métodos de Pagamento */
+        .pxp-payment-methods {
+            display: flex;
+            gap: 8px;
             margin-bottom: 16px;
+        }
+
+        .pxp-method-pill {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--pxp-radius-sm);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--pxp-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--pxp-transition);
+            background-color: #ffffff;
+        }
+
+        .pxp-method-pill.pxp-active-pill {
+            border-color: #16a34a;
+            color: #16a34a;
+            background-color: rgba(22, 163, 74, 0.04);
+        }
+
+        /* Formulários */
+        .pxp-form-group {
+            margin-bottom: 12px;
             position: relative;
         }
 
         .pxp-form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--pxp-text-main);
-            margin-bottom: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #4b5563;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            text-align: left;
         }
 
         .pxp-input-wrapper {
@@ -238,72 +284,74 @@
 
         .pxp-input-icon {
             position: absolute;
-            left: 14px;
-            font-size: 1rem;
-            color: var(--pxp-text-muted);
+            left: 12px;
+            font-size: 0.95rem;
+            color: #9ca3af;
             pointer-events: none;
         }
 
         .pxp-input {
             width: 100%;
-            background-color: #FFF;
-            border: 1.5px solid rgba(26, 10, 0, 0.1);
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: var(--pxp-radius-sm);
-            padding: 12px 12px 12px 40px;
+            padding: 10px 10px 10px 36px;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--pxp-text-main);
             outline: none;
             transition: var(--pxp-transition);
         }
 
         .pxp-input:focus {
-            border-color: var(--pxp-btn-color);
-            box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.15);
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
         }
 
         .pxp-input.pxp-input-error {
             border-color: var(--pxp-error);
-            background-color: #FFF5F5;
+            background-color: #fef2f2;
         }
 
         .pxp-error-text {
             color: var(--pxp-error);
-            font-size: 0.75rem;
-            margin-top: 4px;
+            font-size: 0.72rem;
+            margin-top: 3px;
             display: none;
             font-weight: 500;
+            text-align: left;
         }
 
         .pxp-input.pxp-input-error + .pxp-error-text {
             display: block;
         }
 
-        /* Botão Primário */
+        /* Botão Primário Verde */
         .pxp-btn {
             width: 100%;
-            background-color: var(--pxp-btn-color);
-            color: #FDFAF8;
+            background-color: #16a34a;
+            color: #ffffff;
             border: none;
-            padding: 14px 20px;
-            border-radius: var(--pxp-radius-md);
+            padding: 12px 20px;
+            border-radius: var(--pxp-radius-sm);
             font-family: 'Outfit', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
             transition: var(--pxp-transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 24px;
+            gap: 8px;
+            margin-top: 16px;
+            text-transform: uppercase;
         }
 
         .pxp-btn:hover {
-            background-color: var(--pxp-btn-hover);
-            transform: translateY(-1.5px);
-            box-shadow: 0 10px 24px rgba(21, 128, 61, 0.35);
+            background-color: #15803d;
+            box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
+            transform: translateY(-1px);
         }
 
         .pxp-btn:active {
@@ -311,46 +359,48 @@
         }
 
         .pxp-btn-pulse {
-            animation: pxpBtnPulse 2.5s infinite ease-in-out;
+            animation: pxpBtnPulse 2s infinite ease-in-out;
         }
 
         @keyframes pxpBtnPulse {
-            0% { box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25); }
-            50% { box-shadow: 0 8px 26px rgba(21, 128, 61, 0.55); }
-            100% { box-shadow: 0 8px 20px rgba(21, 128, 61, 0.25); }
+            0% { box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15); }
+            50% { box-shadow: 0 4px 18px rgba(22, 163, 74, 0.4); }
+            100% { box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15); }
         }
 
         .pxp-btn-secondary {
-            background-color: rgba(26, 10, 0, 0.05);
-            color: var(--pxp-text-main);
+            background-color: #f3f4f6;
+            color: #374151;
             box-shadow: none;
-            margin-top: 12px;
+            margin-top: 10px;
+            text-transform: none;
+            font-weight: 600;
         }
 
         .pxp-btn-secondary:hover {
-            background-color: rgba(26, 10, 0, 0.1);
+            background-color: #e5e7eb;
             box-shadow: none;
             transform: none;
         }
 
-        /* ETAPA 2 - Loading */
+        /* Loading */
         .pxp-loading-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            padding: 30px 0;
             text-align: center;
         }
 
         .pxp-spinner {
-            width: 56px;
-            height: 56px;
-            border: 4px solid rgba(211, 84, 0, 0.1);
-            border-top: 4px solid var(--pxp-btn-color);
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(22, 163, 74, 0.1);
+            border-top: 3px solid #16a34a;
             border-radius: 50%;
-            animation: pxpSpin 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
-            margin-bottom: 24px;
+            animation: pxpSpin 0.8s linear infinite;
+            margin-bottom: 20px;
         }
 
         @keyframes pxpSpin {
@@ -359,30 +409,30 @@
         }
 
         .pxp-loading-text {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--pxp-text-main);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .pxp-loading-sub {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--pxp-text-muted);
         }
 
-        /* ETAPA 3 - Exibição PIX */
+        /* QR Code Step */
         .pxp-qr-wrapper {
-            background-color: #FFF;
-            border: 1.5px solid rgba(26, 10, 0, 0.05);
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: var(--pxp-radius-md);
-            padding: 16px;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px auto;
+            padding: 12px;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 16px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow-soft);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .pxp-qr-code {
@@ -391,56 +441,47 @@
             display: block;
         }
 
-        /* Timer de Expiração */
         .pxp-timer-container {
-            background-color: rgba(211, 84, 0, 0.08);
+            background-color: #fef3c7;
             border-radius: 50px;
-            padding: 8px 16px;
+            padding: 6px 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             width: fit-content;
-            margin: 0 auto 20px auto;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--pxp-btn-color);
+            margin: 0 auto 16px auto;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #d97706;
         }
 
         .pxp-timer-icon {
-            font-size: 1rem;
-            animation: pxpRotateTimer 4s infinite linear;
+            font-size: 0.9rem;
         }
 
-        @keyframes pxpRotateTimer {
-            0% { transform: rotate(0deg); }
-            10% { transform: rotate(45deg); }
-            50% { transform: rotate(180deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Código PIX Copia e Cola */
         .pxp-copia-cola-box {
-            background-color: #FFF;
-            border: 1.5px dashed rgba(26, 10, 0, 0.15);
+            background-color: #ffffff;
+            border: 1px dashed #cbd5e1;
             border-radius: var(--pxp-radius-sm);
-            padding: 12px;
-            margin-bottom: 20px;
+            padding: 10px;
+            margin-bottom: 16px;
             position: relative;
         }
 
         .pxp-copia-cola-label {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: var(--pxp-text-muted);
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: block;
+            text-align: left;
         }
 
         .pxp-copia-cola-text {
             font-family: monospace;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--pxp-text-main);
             word-break: break-all;
             white-space: normal;
@@ -448,27 +489,26 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            padding-right: 10px;
+            padding-right: 8px;
+            text-align: left;
         }
 
-        /* Status Waiting */
         .pxp-status-waiting {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
             color: var(--pxp-text-muted);
-            margin-top: 16px;
-            text-align: center;
+            margin-top: 14px;
         }
 
         .pxp-status-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background-color: var(--pxp-btn-color);
+            background-color: #16a34a;
             animation: pxpPulseDot 1.5s infinite ease-in-out;
         }
 
@@ -478,32 +518,25 @@
             100% { transform: scale(0.8); opacity: 0.5; }
         }
 
-        /* ETAPA 4 - Pagamento Aprovado */
+        /* Success Step */
         .pxp-success-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 10px;
+            padding: 20px 5px;
             text-align: center;
         }
 
         .pxp-success-icon-circle {
-            width: 80px;
-            height: 80px;
+            width: 64px;
+            height: 64px;
             background-color: var(--pxp-success-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--pxp-success);
-            font-size: 40px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15);
-            animation: pxpPopSuccess 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes pxpPopSuccess {
             0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
@@ -948,16 +981,18 @@
 
     // ==========================================================================
     // ESTRUTURA HTML DO MODAL
-    // ==========================================================================
-    const modalHTML = `
-        <div class="pxp-overlay" id="pxpOverlay">
+    // ===============================================================        <div class="pxp-overlay" id="pxpOverlay">
             <div class="pxp-modal">
                 <button type="button" class="pxp-close-btn" id="pxpCloseBtn">&times;</button>
+                
+                <!-- Ambiente Seguro Banner -->
+                <div class="pxp-secure-banner">
+                    <span>🔒 Você está em um ambiente seguro</span>
+                </div>
                 
                 <!-- Cabeçalho -->
                  <div class="pxp-header">
                      <img src="logo.png" alt="Manuscrito dos Milagres" class="pxp-brand-logo-img">
-                     <p>PAGAMENTO SEGURO PIX</p>
                  </div>
                 
                 <!-- Corpo -->
@@ -966,8 +1001,22 @@
                     
                     <!-- ETAPA 1: Formulário -->
                     <div class="pxp-step pxp-active-step" id="pxpStep1">
-                        <h4 class="pxp-title-step">Dados do Comprador</h4>
-                        <p class="pxp-desc-step">Preencha seus dados para gerar o código PIX para pagamento.</p>
+                        <!-- Resumo do Pedido -->
+                        <div class="pxp-summary-card">
+                            <img src="logo.png" alt="Produto" class="pxp-summary-img">
+                            <div class="pxp-summary-details">
+                                <span class="pxp-summary-title">O Manuscrito dos Milagres</span>
+                                <span class="pxp-summary-price">R$ 99,00</span>
+                            </div>
+                        </div>
+
+                        <!-- Abas de Pagamento -->
+                        <div class="pxp-payment-methods">
+                            <div class="pxp-method-pill pxp-active-pill">
+                                <span class="pxp-pill-icon">⚡</span>
+                                <span class="pxp-pill-text">Pagar com PIX</span>
+                            </div>
+                        </div>
                         
                         <form id="pxpForm" novalidate>
                             <div class="pxp-form-group">
@@ -998,14 +1047,15 @@
                             </div>
                             
                             <button type="submit" class="pxp-btn pxp-btn-pulse" id="pxpSubmitBtn">
-                                <span>Gerar PIX - R$ 37,00</span>
+                                <span>Gerar PIX - R$ 99,00</span>
                                 <span>⚡</span>
                             </button>
                         </form>
                         
-                        <div class="pxp-secure-footer">
-                            <img src="pix-logo.png" alt="PIX Banco Central" class="pxp-secure-logo">
-                            <span>Pagamento processado com segurança via Banco Central do Brasil</span>
+                        <div class="pxp-secure-footer" style="margin-top: 16px; font-size: 0.65rem; color: #9ca3af; text-align: center; border-top: 1px solid #f3f4f6; padding-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>🔒 COMPRA 100% PROTEGIDA</span>
+                            <span>•</span>
+                            <span>TECNOLOGIA SSL</span>
                         </div>
                     </div>
                     
@@ -1020,8 +1070,8 @@
                     
                     <!-- ETAPA 3: Exibição do QR Code e Código -->
                     <div class="pxp-step" id="pxpStep3">
-                        <h4 class="pxp-title-step">Escaneie o QR Code</h4>
-                        <p class="pxp-desc-step">Pague através do aplicativo do seu banco usando o QR Code abaixo.</p>
+                        <h4 class="pxp-title-step" style="text-align: center; margin-bottom: 6px; font-size: 1.1rem; font-weight: 700;">Escaneie o QR Code</h4>
+                        <p class="pxp-desc-step" style="text-align: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--pxp-text-muted);">Pague através do aplicativo do seu banco usando o QR Code abaixo.</p>
                         
                         <!-- QR Code Wrapper -->
                         <div class="pxp-qr-wrapper">
@@ -1050,10 +1100,6 @@
                         <div class="pxp-status-waiting">
                             <div class="pxp-status-dot"></div>
                             <span>Aguardando pagamento...</span>
-                        </div>
-                        
-                        <div class="pxp-secure-footer">
-                            <img src="pix-logo.png" alt="PIX Banco Central" class="pxp-secure-logo">
                         </div>
                     </div>
                     
