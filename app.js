@@ -1162,10 +1162,10 @@
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1014856120885286');
+            fbq('init', '26069232519364368');
             console.log('Pixel do Facebook: Inicializado dinamicamente pelo Modal.');
         } else {
-            fbq('init', '1014856120885286');
+            fbq('init', '26069232519364368');
             console.log('Pixel do Facebook: ID de Pixel vinculado.');
         }
         fbq('track', 'PageView');
@@ -1195,8 +1195,12 @@
         // Injeta a estrutura HTML do modal no final do body
         const containerDiv = document.createElement('div');
         containerDiv.innerHTML = modalHTML.trim();
-        document.body.appendChild(containerDiv.firstChild);
-        document.body.appendChild(containerDiv.lastChild); // Adiciona o Toast
+        
+        // Adiciona os elementos reais buscando por ID (ignora comentários e espaços em branco)
+        const overlayElement = containerDiv.querySelector('#pxpOverlay');
+        const toastElement = containerDiv.querySelector('#pxpToast');
+        if (overlayElement) document.body.appendChild(overlayElement);
+        if (toastElement) document.body.appendChild(toastElement);
 
         // Registra os Event Listeners principais
         setupEventListeners();
