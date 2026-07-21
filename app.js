@@ -1881,10 +1881,24 @@
         }, 3000);
     }
 
+    // Abre o modal automaticamente se a URL contiver a hash '#checkout' ou query '?checkout=true'
+    function checkUrlForCheckout() {
+        if (window.location.hash === '#checkout' || window.location.hash === '#gerarpix' || window.location.search.includes('checkout=true')) {
+            openModal(99.00, 'Manuscrito dos Milagres');
+        }
+    }
+
     // Inicializa o modal assim que o DOM estiver pronto
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            checkUrlForCheckout();
+        });
     } else {
         init();
+        checkUrlForCheckout();
     }
+    
+    // Ouvinte para mudanças na Hash da URL
+    window.addEventListener('hashchange', checkUrlForCheckout);
 })();
