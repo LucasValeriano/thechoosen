@@ -981,7 +981,9 @@
 
     // ==========================================================================
     // ESTRUTURA HTML DO MODAL
-    // ===============================================================        <div class="pxp-overlay" id="pxpOverlay">
+    // ==========================================================================
+    const modalHTML = `
+        <div class="pxp-overlay" id="pxpOverlay">
             <div class="pxp-modal">
                 <button type="button" class="pxp-close-btn" id="pxpCloseBtn">&times;</button>
                 
