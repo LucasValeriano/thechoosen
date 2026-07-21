@@ -27,7 +27,7 @@
         timerSecondsRemaining: CONFIG.expirationMinutes * 60,
         orderBump1: false,
         orderBump2: false,
-        baseAmount: 37.00, // Dinâmico (R$ 37,00)
+        baseAmount: 99.00, // Dinâmico (R$ 99,00)
         baseProductName: 'Manuscrito dos Milagres', // Dinâmico
         formData: {
             nome: '',
@@ -1304,7 +1304,7 @@
         if (typeof basePrice === 'number' && !isNaN(basePrice)) {
             appState.baseAmount = basePrice;
         } else {
-            appState.baseAmount = 37.00;
+            appState.baseAmount = 99.00;
         }
         
         if (planName) {

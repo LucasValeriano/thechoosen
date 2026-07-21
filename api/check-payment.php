@@ -80,7 +80,7 @@ if (in_array($paymentStatus, ['PAID', 'APPROVED', 'PAGO'])) {
                 "name" => $customerObj['name'] ?? '',
                 "email" => $customerObj['email'] ?? '',
                 "phone" => $customerObj['phone'] ?? '',
-                "amount" => isset($data['amount']) ? (float)$data['amount'] / 100 : 37.00,
+                "amount" => isset($data['amount']) ? (float)$data['amount'] / 100 : 99.00,
                 "products" => $productsList,
                 "ip" => '',
                 "user_agent" => '',

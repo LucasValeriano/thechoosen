@@ -87,7 +87,7 @@ if (in_array($paymentStatus, ['PAID', 'APPROVED',     // Facebook CAPI
                 "name" => $customerObj['name'] ?? '',
                 "email" => $customerObj['email'] ?? '',
                 "phone" => $customerObj['phone'] ?? '',
-                "amount" => isset($data['amount']) ? (float)$data['amount'] : 37.00,
+                "amount" => isset($data['amount']) ? (float)$data['amount'] : 99.00,
                 "products" => $productsList,
                 "ip" => '',
                 "user_agent" => '',
@@ -116,7 +116,7 @@ if (in_array($paymentStatus, ['PAID', 'APPROVED',     // Facebook CAPI
             $hashFirstName = hash("sha256", strtolower($nameParts[0]));
             $hashLastName = isset($nameParts[1]) ? hash("sha256", strtolower($nameParts[1])) : '';
 
-            $value = isset($txData['amount']) ? (float)$txData['amount'] : 37.00;
+            $value = isset($txData['amount']) ? (float)$txData['amount'] : 99.00;
             
             $contentName = "Manuscrito dos Milagres";
             if (isset($txData['products']) && is_array($txData['products'])) {
