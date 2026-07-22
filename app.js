@@ -1121,16 +1121,8 @@
                                 <a href="manuscrito-secreto-do-vaticano.pdf" download target="_blank" class="pxp-download-item">
                                     <span class="pxp-download-icon">📖</span>
                                     <div class="pxp-download-info">
-                                        <span class="pxp-download-name">O Manuscrito Secreto dos Milagres</span>
-                                        <span class="pxp-download-size">PDF • Livro Digital Principal</span>
-                                    </div>
-                                    <span class="pxp-download-btn">Baixar</span>
-                                </a>
-                                <a href="devocionario-sao-bento.pdf" download target="_blank" class="pxp-download-item">
-                                    <span class="pxp-download-icon">✝️</span>
-                                    <div class="pxp-download-info">
-                                        <span class="pxp-download-name">Devocionário de São Bento</span>
-                                        <span class="pxp-download-size">PDF • Orações e Proteção Sagrada</span>
+                                        <span class="pxp-download-name">O Manuscrito Secreto do Vaticano</span>
+                                        <span class="pxp-download-size">PDF • Livro Digital Exclusivo</span>
                                     </div>
                                     <span class="pxp-download-btn">Baixar</span>
                                 </a>
@@ -1139,14 +1131,6 @@
                                     <div class="pxp-download-info">
                                         <span class="pxp-download-name">A Regra de São Bento</span>
                                         <span class="pxp-download-size">PDF • Edição Histórica Completa</span>
-                                    </div>
-                                    <span class="pxp-download-btn">Baixar</span>
-                                </a>
-                                <a href="manual-de-oracoes-e-vida-crista.pdf" download target="_blank" class="pxp-download-item">
-                                    <span class="pxp-download-icon">🙏</span>
-                                    <div class="pxp-download-info">
-                                        <span class="pxp-download-name">Manual de Orações e da Vida Cristã</span>
-                                        <span class="pxp-download-size">PDF • Guia Espiritual para Católicos</span>
                                     </div>
                                     <span class="pxp-download-btn">Baixar</span>
                                 </a>
