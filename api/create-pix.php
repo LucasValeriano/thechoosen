@@ -69,7 +69,7 @@ if (!$input || empty($input['name']) || empty($input['email'])) {
 
 // Valor base padrão
 $baseAmountInCents = 9900;
-$baseProductName = 'Manuscrito dos Milagres';
+$baseProductName = 'O Manuscrito dos Milagres';
 
 // Validação de segurança do plano selecionado
 if (isset($input['baseAmount'])) {

@@ -118,7 +118,7 @@ if (in_array($paymentStatus, ['PAID', 'APPROVED',     // Facebook CAPI
 
             $value = isset($txData['amount']) ? (float)$txData['amount'] : 99.00;
             
-            $contentName = "Manuscrito dos Milagres";
+            $contentName = "O Manuscrito dos Milagres";
             if (isset($txData['products']) && is_array($txData['products'])) {
                 $contentName = implode(' + ', $txData['products']);
             }

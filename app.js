@@ -28,7 +28,7 @@
         orderBump1: false,
         orderBump2: false,
         baseAmount: 99.00, // Dinâmico (R$ 99,00)
-        baseProductName: 'Manuscrito dos Milagres', // Dinâmico
+        baseProductName: 'O Manuscrito dos Milagres', // Dinâmico
         formData: {
             nome: '',
             email: '',
@@ -1047,6 +1047,15 @@
                                 </div>
                                 <span class="pxp-error-text" id="pxpEmailError">Por favor, insira um e-mail válido</span>
                             </div>
+
+                            <div class="pxp-form-group">
+                                <label for="pxpWhatsapp">WhatsApp / Celular</label>
+                                <div class="pxp-input-wrapper">
+                                    <span class="pxp-input-icon">📱</span>
+                                    <input type="text" id="pxpWhatsapp" class="pxp-input" placeholder="(00) 00000-0000" maxlength="15" required>
+                                </div>
+                                <span class="pxp-error-text" id="pxpWhatsappError">Por favor, insira seu WhatsApp com DDD</span>
+                            </div>
                             
                             <button type="submit" class="pxp-btn pxp-btn-pulse" id="pxpSubmitBtn">
                                 <span>Gerar PIX - R$ 99,00</span>
@@ -1121,7 +1130,7 @@
                                 <a href="manuscrito-secreto-do-vaticano.pdf" download target="_blank" class="pxp-download-item">
                                     <span class="pxp-download-icon">📖</span>
                                     <div class="pxp-download-info">
-                                        <span class="pxp-download-name">O Manuscrito Secreto do Vaticano</span>
+                                        <span class="pxp-download-name">O Manuscrito dos Milagres</span>
                                         <span class="pxp-download-size">PDF • Livro Digital Exclusivo</span>
                                     </div>
                                     <span class="pxp-download-btn">Baixar</span>
@@ -1293,13 +1302,13 @@
                 // Aplica o plano detectado ou padrão de 99
                 if (detectedBasico) {
                     basePrice = 19.00;
-                    planName = 'Método Linguiça Lucrativa (Básico)';
+                    planName = 'O Manuscrito dos Milagres (Básico)';
                 } else if (detectedPremium) {
                     basePrice = 37.00;
-                    planName = 'Método Linguiça Lucrativa (Premium)';
+                    planName = 'O Manuscrito dos Milagres (Premium)';
                 } else {
                     basePrice = 99.00;
-                    planName = 'Método Linguiça Lucrativa';
+                    planName = 'O Manuscrito dos Milagres';
                 }
                 
                 openModal(basePrice, planName);
@@ -1325,21 +1334,42 @@
             }
         });
 
-        // Máscaras de digitação em tempo real (CPF)
+        // Máscaras de digitação em tempo real (CPF e WhatsApp)
         const cpfInput = document.getElementById('pxpCpf');
-        cpfInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, "");
-            if (value.length > 11) value = value.slice(0, 11);
-            if (value.length > 9) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
-            } else if (value.length > 6) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{0,3})$/, "$1.$2.$3");
-            } else if (value.length > 3) {
-                value = value.replace(/^(\d{3})(\d{0,3})$/, "$1.$2");
-            }
-            e.target.value = value;
-            clearInputError(cpfInput, 'pxpCpfError');
-        });
+        if (cpfInput) {
+            cpfInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, "");
+                if (value.length > 11) value = value.slice(0, 11);
+                if (value.length > 9) {
+                    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+                } else if (value.length > 6) {
+                    value = value.replace(/^(\d{3})(\d{3})(\d{0,3})$/, "$1.$2.$3");
+                } else if (value.length > 3) {
+                    value = value.replace(/^(\d{3})(\d{0,3})$/, "$1.$2");
+                }
+                e.target.value = value;
+                clearInputError(cpfInput, 'pxpCpfError');
+            });
+        }
+
+        const whatsappInput = document.getElementById('pxpWhatsapp');
+        if (whatsappInput) {
+            whatsappInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, "");
+                if (value.length > 11) value = value.slice(0, 11);
+                if (value.length > 10) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+                } else if (value.length > 5) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+                } else if (value.length > 2) {
+                    value = value.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+                } else if (value.length > 0) {
+                    value = value.replace(/^(\d*)$/, "($1");
+                }
+                e.target.value = value;
+                clearInputError(whatsappInput, 'pxpWhatsappError');
+            });
+        }
 
         // Ouvintes de limpeza simples de erros nos inputs
         const nomeInput = document.getElementById('pxpNome');
@@ -1370,7 +1400,7 @@
         if (planName) {
             appState.baseProductName = planName;
         } else {
-            appState.baseProductName = 'Manuscrito dos Milagres';
+            appState.baseProductName = 'O Manuscrito dos Milagres';
         }
         
         // ==========================================================================
@@ -1421,7 +1451,7 @@
         document.getElementById('pxpForm').reset();
         document.getElementById('pxpAlertError').style.display = 'none';
         
-        const inputs = ['pxpNome', 'pxpEmail', 'pxpCpf'];
+        const inputs = ['pxpNome', 'pxpEmail', 'pxpCpf', 'pxpWhatsapp'];
         inputs.forEach(id => {
             const input = document.getElementById(id);
             if (input) {
@@ -1455,9 +1485,10 @@
         const nome = document.getElementById('pxpNome');
         const email = document.getElementById('pxpEmail');
         const cpf = document.getElementById('pxpCpf');
+        const whatsapp = document.getElementById('pxpWhatsapp');
 
         // Valida Nome (Mínimo duas palavras)
-        const nameVal = nome.value.trim();
+        const nameVal = nome ? nome.value.trim() : "";
         if (nameVal.length < 5 || !nameVal.includes(' ')) {
             showInputError(nome, 'pxpNomeError');
             isValid = false;
@@ -1466,7 +1497,7 @@
         }
 
         // Valida CPF (11 dígitos)
-        const cpfVal = cpf.value.replace(/\D/g, "");
+        const cpfVal = cpf ? cpf.value.replace(/\D/g, "") : "";
         if (cpfVal.length !== 11) {
             showInputError(cpf, 'pxpCpfError');
             isValid = false;
@@ -1476,14 +1507,22 @@
 
         // Valida E-mail
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value.trim())) {
+        const emailVal = email ? email.value.trim() : "";
+        if (!emailRegex.test(emailVal)) {
             showInputError(email, 'pxpEmailError');
             isValid = false;
         } else {
-            appState.formData.email = email.value.trim();
+            appState.formData.email = emailVal;
         }
 
-        appState.formData.whatsapp = "";
+        // Valida WhatsApp / Telefone (Mínimo 10 dígitos)
+        const phoneVal = whatsapp ? whatsapp.value.replace(/\D/g, "") : "";
+        if (phoneVal.length < 10) {
+            showInputError(whatsapp, 'pxpWhatsappError');
+            isValid = false;
+        } else {
+            appState.formData.whatsapp = phoneVal;
+        }
 
         return isValid;
     }
@@ -1650,7 +1689,7 @@
             name: appState.formData.nome,
             email: appState.formData.email,
             cpf: appState.formData.cpf,
-            whatsapp: '',
+            whatsapp: appState.formData.whatsapp,
             amount: totalAmount,
             baseAmount: appState.baseAmount,
             baseProductName: appState.baseProductName,
@@ -1892,7 +1931,7 @@
     // Abre o modal automaticamente se a URL contiver a hash '#checkout' ou query '?checkout=true'
     function checkUrlForCheckout() {
         if (window.location.hash === '#checkout' || window.location.hash === '#gerarpix' || window.location.search.includes('checkout=true')) {
-            openModal(99.00, 'Manuscrito dos Milagres');
+            openModal(99.00, 'O Manuscrito dos Milagres');
         }
     }
 

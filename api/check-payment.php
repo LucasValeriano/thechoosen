@@ -70,7 +70,7 @@ if (in_array($paymentStatus, ['PAID', 'APPROVED', 'PAGO'])) {
     if (!$txData || !is_array($txData)) {
         $customerObj = $data['customer_data']['customer'] ?? null;
         if ($customerObj) {
-            $productsList = ['Manuscrito dos Milagres'];
+            $productsList = ['O Manuscrito dos Milagres'];
             if (isset($data['customer_data']['description'])) {
                 $productsList = explode(' + ', $data['customer_data']['description']);
             }
