@@ -14,7 +14,7 @@
         apiCheckPayment: 'api/check-payment.php',
         pollingInterval: 10000, // 10 segundos
         demoMode: false,        // DESATIVADO: Agora só aprova se o pagamento for real no banco
-        expirationMinutes: 10  // Expiração ajustada para 10 minutos
+        expirationMinutes: 5   // Expiração ajustada para 5 minutos
     };
 
     // Estado da Aplicação
@@ -24,6 +24,8 @@
         pixCode: '',
         pollingIntervalId: null,
         timerIntervalId: null,
+        step1IntervalId: null,
+        step1SecondsRemaining: 180,
         timerSecondsRemaining: CONFIG.expirationMinutes * 60,
         orderBump1: false,
         orderBump2: false,
@@ -1019,6 +1021,12 @@
                                 <span class="pxp-pill-text">Pagar com PIX</span>
                             </div>
                         </div>
+
+                        <!-- Cronômetro de Reserva de 3 Minutos -->
+                        <div class="pxp-reserve-timer" style="background-color: #fef2f2; border: 1px solid #fee2e2; border-radius: var(--pxp-radius-sm); padding: 10px 14px; margin-bottom: 16px; font-size: 0.82rem; font-weight: 700; color: #ef4444; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span class="pxp-timer-pulse-icon" style="font-size: 0.95rem;">⏳</span>
+                            <span>Sua vaga e desconto estão reservados por: <strong id="pxpStep1Timer">03:00</strong></span>
+                        </div>
                         
                         <form id="pxpForm" novalidate>
                             <div class="pxp-form-group">
@@ -1419,6 +1427,7 @@
         // Reinicia para a etapa 1 ao abrir
         switchStep(1);
         resetState();
+        startStep1Timer();
     }
 
     // Expõe a função globalmente para integração simples no DeskFunnel
@@ -1432,6 +1441,7 @@
         // Cancela timers e pollings ativos
         stopPolling();
         stopTimer();
+        stopStep1Timer();
     }
 
     function switchStep(stepNumber) {
@@ -1674,6 +1684,7 @@
     // REQUISIÇÕES DE API / FLUXO DE PAGAMENTO
     // ==========================================================================
     function generatePix() {
+        stopStep1Timer();
         switchStep(2); // Transiciona para Etapa 2 (Loading)
 
         // Limpa erros anteriores
@@ -1780,6 +1791,43 @@
             
             timerText.innerText = `${paddedMinutes}:${paddedSeconds}`;
         }, 1000);
+    }
+
+    // ==========================================================================
+    // CRONÔMETRO DE URGÊNCIA (ETAPA 1)
+    // ==========================================================================
+    function startStep1Timer() {
+        stopStep1Timer();
+        appState.step1SecondsRemaining = 180; // 3 minutos
+        const timerText = document.getElementById('pxpStep1Timer');
+        if (!timerText) return;
+
+        timerText.innerText = "03:00";
+
+        appState.step1IntervalId = setInterval(function () {
+            appState.step1SecondsRemaining--;
+
+            if (appState.step1SecondsRemaining <= 0) {
+                stopStep1Timer();
+                closeModal();
+                alert("O tempo para finalizar seu cadastro expirou! Por favor, reabra o checkout para reativar seu desconto.");
+                return;
+            }
+
+            const minutes = Math.floor(appState.step1SecondsRemaining / 60);
+            const seconds = appState.step1SecondsRemaining % 60;
+            const paddedMinutes = String(minutes).padStart(2, '0');
+            const paddedSeconds = String(seconds).padStart(2, '0');
+
+            timerText.innerText = `${paddedMinutes}:${paddedSeconds}`;
+        }, 1000);
+    }
+
+    function stopStep1Timer() {
+        if (appState.step1IntervalId) {
+            clearInterval(appState.step1IntervalId);
+            appState.step1IntervalId = null;
+        }
     }
 
     function stopTimer() {
